@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+    <item android:drawable="@color/colorSplashBackground" />
+    <item android:left="128dp"
+        android:right="128dp"
+        android:top="128dp"
+        android:bottom="128dp"
+        android:drawable="@drawable/ic_barta_icon"
+        android:gravity="fill" />
+</layer-list>
