@@ -3,4 +3,9 @@
     <string name="title_profile">Me</string>
     <string name="title_home">Home</string>
     <string name="title_settings">Settings</string>
+    <string name="upvote_button_desc">Upvote button</string>
+    <string name="downvote_button_desc">Downvote button</string>
+    <string name="comment_button_desc">Comment button</string>
+    <string name="time_icon_desc">Time icon</string>
+    <string name="place_icon_desc">Place icon</string>
 </resources>
