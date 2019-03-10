@@ -1,11 +1,20 @@
 package app.barta.barta;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,25 +35,70 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = "HomeFragment";
+
+    private LocationManager locationManager;
+    private Location deviceLocation;
+    private List<Post> posts;
+    private RecyclerView recyclerView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        updateLocation();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_home, null);
-        RecyclerView recyclerView = (RecyclerView) fragmentView.findViewById(R.id.postListView);
+        recyclerView = fragmentView.findViewById(R.id.postListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        fetchPosts(recyclerView);
+        fetchPosts();
         return fragmentView;
     }
 
-    public void fetchPosts(final RecyclerView recyclerView) {
-        final List<Post> posts = new ArrayList<>();
+    public void updateLocation() {
+        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "No location permission");
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+            return;
+        }
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.d(TAG, "Location changed to " + location);
+                deviceLocation = location;
+                if (posts != null)
+                    recyclerView.setAdapter(new PostListAdapter(posts, deviceLocation));
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        }, null);
+    }
+
+    public void fetchPosts() {
         String url = "http://10.0.2.2:8080/posts?projection=details";
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("-------------------------------------------------------------------------------" + response);
                 try {
+                    posts = new ArrayList<>();
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray postsJson = jsonObject.getJSONObject("_embedded").getJSONArray("posts");
                     for (int i = 0; i < postsJson.length(); i++) {
@@ -57,17 +111,25 @@ public class HomeFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                recyclerView.setAdapter(new PostListAdapter(posts));
+                Log.d(TAG, "Finished fetching posts");
+                if (deviceLocation != null)
+                    recyclerView.setAdapter(new PostListAdapter(posts, deviceLocation));
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("-------------------------------------------------------------------------------" + error);
-                recyclerView.setAdapter(new PostListAdapter(posts));
+                Log.e(TAG, "Error while fetching posts", error);
             }
         });
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100)
+            updateLocation();
     }
 }

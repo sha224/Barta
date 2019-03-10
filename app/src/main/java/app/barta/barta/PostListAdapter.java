@@ -1,5 +1,6 @@
 package app.barta.barta;
 
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +15,11 @@ import java.util.List;
 public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostHolder> {
 
     private List<Post> posts;
+    private Location deviceLocation;
 
-    public PostListAdapter(List<Post> posts) {
+    public PostListAdapter(List<Post> posts, Location deviceLocation) {
         this.posts = posts;
+        this.deviceLocation = deviceLocation;
     }
 
     static class PostHolder extends RecyclerView.ViewHolder {
@@ -54,7 +57,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostHo
         postHolder.upvoteCountView.setText(Integer.toString(posts.get(i).upvoteCount));
         postHolder.downvoteCountView.setText(Integer.toString(posts.get(i).downvoteCount));
         postHolder.commentCountView.setText(Integer.toString(posts.get(i).commentCount));
-        postHolder.placeTextView.setText(posts.get(i).getMilesDistanceFrom(43.456236, -76.542157) + " mi");
+        postHolder.placeTextView.setText(posts.get(i).getMilesDistanceFrom(deviceLocation.getLatitude(), deviceLocation.getLongitude()) + " mi");
         postHolder.timeTextView.setText(posts.get(i).getHourDifferenceFrom(OffsetDateTime.now()) + "h");
     }
 
