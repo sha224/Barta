@@ -1,7 +1,6 @@
 package app.barta.barta;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -108,7 +107,7 @@ public class HomeFragment extends Fragment {
                         posts.add(post);
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Error while parsing JSON", e);
                 }
 
                 Log.d(TAG, "Finished fetching posts");

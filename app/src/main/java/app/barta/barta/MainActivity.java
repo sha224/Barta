@@ -1,10 +1,12 @@
 package app.barta.barta;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +31,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actions_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.composeAction) {
+            Intent composeIntent = new Intent(this, ComposeActivity.class);
+            startActivity(composeIntent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

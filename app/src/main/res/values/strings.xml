@@ -8,4 +8,9 @@
     <string name="comment_button_desc">Comment button</string>
     <string name="time_icon_desc">Time icon</string>
     <string name="place_icon_desc">Place icon</string>
+    <string name="create_button_desc">Create button</string>
+    <string name="compose_activity_title">Create Post</string>
+    <string name="compose_autofill_hint">Write your post</string>
+    <string name="compose_action_text">Compose</string>
+    <string name="compose_done_action_text">Post</string>
 </resources>

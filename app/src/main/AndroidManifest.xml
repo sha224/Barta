@@ -3,7 +3,8 @@
     package="app.barta.barta">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />\
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    \
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -17,14 +18,16 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.Splash"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ComposeActivity"
+            android:label="@string/compose_activity_title" />
     </application>
 
 </manifest>
