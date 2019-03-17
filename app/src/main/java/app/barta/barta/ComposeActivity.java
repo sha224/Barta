@@ -1,6 +1,7 @@
 package app.barta.barta;
 
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,14 +25,18 @@ import java.io.UnsupportedEncodingException;
 
 public class ComposeActivity extends AppCompatActivity {
 
-    private static final String TAG = "ComposeActivity";
+    private static final String TAG = "app.barta.barta.MESSAGE";
 
+    private Location deviceLocation;
+    private String userUrl;
     private TextView postTextInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+        deviceLocation = getIntent().getParcelableExtra(MainActivity.EXTRA_LOCATION);
+        userUrl = getIntent().getStringExtra(MainActivity.EXTRA_USER_URL);
         postTextInput = findViewById(R.id.postTextInput);
     }
 
@@ -61,10 +66,10 @@ public class ComposeActivity extends AppCompatActivity {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("text", postText);
             JSONObject location = new JSONObject();
-            location.put("x", -76.5422);
-            location.put("y", 43.4562);
+            location.put("x", deviceLocation.getLongitude());
+            location.put("y", deviceLocation.getLatitude());
             jsonBody.put("location", location);
-            jsonBody.put("author", "http://localhost:8080/users/5c83087b57dfd30430643302");
+            jsonBody.put("author", userUrl);
             requestBody = jsonBody.toString();
         } catch (JSONException e) {
             Log.e(TAG, "Error while making JSON Body", e);
@@ -108,6 +113,5 @@ public class ComposeActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
     }
 }

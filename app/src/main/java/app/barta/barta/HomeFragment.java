@@ -36,15 +36,12 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
 
-    private LocationManager locationManager;
-    private Location deviceLocation;
     private List<Post> posts;
     private RecyclerView recyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        updateLocation();
     }
 
     @Nullable
@@ -57,45 +54,13 @@ public class HomeFragment extends Fragment {
         return fragmentView;
     }
 
-    public void updateLocation() {
-        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "No location permission");
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-            return;
-        }
-        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.d(TAG, "Location changed to " + location);
-                deviceLocation = location;
-                if (posts != null)
-                    recyclerView.setAdapter(new PostListAdapter(posts, deviceLocation));
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        }, null);
-    }
-
     public void fetchPosts() {
         String url = "http://10.0.2.2:8080/posts?projection=details";
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.d(TAG, "Response: " + response);
                 try {
                     posts = new ArrayList<>();
                     JSONObject jsonObject = new JSONObject(response);
@@ -111,6 +76,7 @@ public class HomeFragment extends Fragment {
                 }
 
                 Log.d(TAG, "Finished fetching posts");
+                Location deviceLocation = ((MainActivity) getContext()).getDeviceLocation();
                 if (deviceLocation != null)
                     recyclerView.setAdapter(new PostListAdapter(posts, deviceLocation));
             }
@@ -123,12 +89,5 @@ public class HomeFragment extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100)
-            updateLocation();
     }
 }
