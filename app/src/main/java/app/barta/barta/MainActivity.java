@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void writeNewUserUrl() {
-        String url = "http://10.0.2.2:8080/users";
+        String url = BuildConfig.API_URL + "/users";
 
         JSONObject jsonBody = new JSONObject();
         final String requestBody = jsonBody.toString();

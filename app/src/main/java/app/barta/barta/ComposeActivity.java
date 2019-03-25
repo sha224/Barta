@@ -58,7 +58,7 @@ public class ComposeActivity extends AppCompatActivity {
     }
 
     public void createPost(String postText) {
-        String url = "http://10.0.2.2:8080/posts";
+        String url = BuildConfig.API_URL + "/posts";
 
         String requestBody = null;
 
