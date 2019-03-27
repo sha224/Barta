@@ -40,9 +40,10 @@ import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "MainActivity";
-    public static final String EXTRA_LOCATION = "deviceLocation";
-    public static final String EXTRA_USER_URL = "userUrl";
+    static final String TAG = "MainActivity";
+    static final String EXTRA_LOCATION = "deviceLocation";
+    static final String EXTRA_USER_URL = "userUrl";
+    static final String EXTRA_POST_URL = "postUrl";
     private static final String USER_DATA_FILENAME = "user";
 
     private LocationManager locationManager;

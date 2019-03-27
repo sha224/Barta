@@ -25,7 +25,7 @@ import java.io.UnsupportedEncodingException;
 
 public class ComposeActivity extends AppCompatActivity {
 
-    private static final String TAG = "app.barta.barta.MESSAGE";
+    private static final String TAG = "ComposeActivity";
 
     private Location deviceLocation;
     private String userUrl;

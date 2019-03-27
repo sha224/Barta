@@ -26,8 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ComposeActivity"
+        <activity
+            android:name=".ComposeActivity"
             android:label="@string/compose_activity_title" />
+        <activity android:name=".CommentActivity"></activity>
     </application>
 
 </manifest>

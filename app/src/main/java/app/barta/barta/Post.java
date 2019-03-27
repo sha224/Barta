@@ -5,6 +5,7 @@ import org.threeten.bp.OffsetDateTime;
 
 class Post {
 
+    String postUrl;
     String text;
     int upvoteCount;
     int downvoteCount;
@@ -22,7 +23,8 @@ class Post {
         }
     }
 
-    public Post(String text, int upvoteCount, int downvoteCount, int commentCount, Point location, String creationTime) {
+    public Post(String postUrl, String text, int upvoteCount, int downvoteCount, int commentCount, Point location, String creationTime) {
+        this.postUrl = postUrl;
         this.text = text;
         this.upvoteCount = upvoteCount;
         this.downvoteCount = downvoteCount;

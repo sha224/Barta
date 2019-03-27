@@ -16,7 +16,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/postText"
+                android:id="@+id/commentText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -38,7 +38,7 @@
                 android:contentDescription="@string/upvote_button_desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/postText"
+                app:layout_constraintTop_toBottomOf="@+id/commentText"
                 app:srcCompat="@drawable/ic_baseline_thumb_up_24px" />
 
             <ImageButton
@@ -53,24 +53,9 @@
                 android:contentDescription="@string/downvote_button_desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/upvoteCountText"
-                app:layout_constraintTop_toBottomOf="@+id/postText"
+                app:layout_constraintTop_toBottomOf="@+id/commentText"
                 app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/ic_baseline_thumb_down_24px" />
-
-            <ImageButton
-                android:id="@+id/commentButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@null"
-                android:contentDescription="@string/comment_button_desc"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/downvoteCountText"
-                app:layout_constraintTop_toBottomOf="@+id/postText"
-                app:srcCompat="@drawable/ic_baseline_comment_24px" />
 
             <TextView
                 android:id="@+id/upvoteCountText"
@@ -82,7 +67,7 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/upvoteButton"
-                app:layout_constraintTop_toBottomOf="@+id/postText" />
+                app:layout_constraintTop_toBottomOf="@+id/commentText" />
 
             <TextView
                 android:id="@+id/downvoteCountText"
@@ -94,19 +79,7 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/downvoteButton"
-                app:layout_constraintTop_toBottomOf="@+id/postText" />
-
-            <TextView
-                android:id="@+id/commentCountText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/commentButton"
-                app:layout_constraintTop_toBottomOf="@+id/postText" />
+                app:layout_constraintTop_toBottomOf="@+id/commentText" />
 
             <TextView
                 android:id="@+id/timeText"
@@ -118,7 +91,7 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/postText" />
+                app:layout_constraintTop_toBottomOf="@+id/commentText" />
 
             <ImageView
                 android:id="@+id/timeIcon"
@@ -131,34 +104,8 @@
                 android:contentDescription="@string/time_icon_desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/timeText"
-                app:layout_constraintTop_toBottomOf="@+id/postText"
+                app:layout_constraintTop_toBottomOf="@+id/commentText"
                 app:srcCompat="@drawable/ic_baseline_access_time_24px" />
-
-            <TextView
-                android:id="@+id/placeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/timeIcon"
-                app:layout_constraintTop_toBottomOf="@+id/postText" />
-
-            <ImageView
-                android:id="@+id/placeIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="@string/place_icon_desc"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/placeText"
-                app:layout_constraintTop_toBottomOf="@+id/postText"
-                app:srcCompat="@drawable/ic_baseline_place_24px" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

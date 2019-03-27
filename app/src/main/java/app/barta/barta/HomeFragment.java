@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void fetchPosts() {
-        String url = BuildConfig.API_URL + "/posts?projection=details";
+        String url = BuildConfig.API_URL + "/posts";
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {
             @Override
@@ -61,8 +61,9 @@ public class HomeFragment extends Fragment {
                     JSONArray postsJson = jsonObject.getJSONObject("_embedded").getJSONArray("posts");
                     for (int i = 0; i < postsJson.length(); i++) {
                         JSONObject postJson = postsJson.getJSONObject(i);
+                        String postUrl = postJson.getJSONObject("_links").getJSONObject("self").getString("href");
                         JSONObject locationJson = postJson.getJSONObject("location");
-                        Post post = new Post(postJson.getString("text"), postJson.getInt("upvotes"), postJson.getInt("downvotes"), postJson.getInt("commentCount"), new Post.Point(locationJson.getDouble("x"), locationJson.getDouble("y")), postJson.getString("creationTime"));
+                        Post post = new Post(postUrl, postJson.getString("text"), postJson.getInt("upvotes"), postJson.getInt("downvotes"), postJson.getInt("commentCount"), new Post.Point(locationJson.getDouble("x"), locationJson.getDouble("y")), postJson.getString("creationTime"));
                         posts.add(post);
                     }
                 } catch (JSONException e) {
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "Finished fetching posts");
                 Location deviceLocation = ((MainActivity) getContext()).getDeviceLocation();
                 if (deviceLocation != null)
-                    recyclerView.setAdapter(new PostListAdapter(posts, deviceLocation));
+                    recyclerView.setAdapter(new PostListAdapter(getContext(), posts, deviceLocation));
             }
         }, new Response.ErrorListener() {
             @Override

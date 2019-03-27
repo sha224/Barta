@@ -13,4 +13,6 @@
     <string name="compose_autofill_hint">Write your post</string>
     <string name="compose_action_text">Compose</string>
     <string name="compose_done_action_text">Post</string>
+    <string name="comment_autofill_hint">Write Comment</string>
+    <string name="comments_label">COMMENTS</string>
 </resources>
