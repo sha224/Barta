@@ -72,7 +72,7 @@ public class CommentActivity extends AppCompatActivity {
                     comments = new ArrayList<>();
                     for (int i = 0; i < commentsJson.length(); i++) {
                         JSONObject commentJson = commentsJson.getJSONObject(i);
-                        Comment comment = new Comment(commentJson.getString("text"), commentJson.getInt("upvotes"), commentJson.getInt("downvotes"), commentJson.getString("creationTime"));
+                        Comment comment = new Comment(commentJson.getString("text"), commentJson.getInt("authorIdentifier"), commentJson.getInt("upvotes"), commentJson.getInt("downvotes"), commentJson.getString("creationTime"));
                         comments.add(comment);
                     }
                 } catch (JSONException e) {

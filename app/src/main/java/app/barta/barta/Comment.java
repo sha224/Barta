@@ -6,12 +6,14 @@ import org.threeten.bp.OffsetDateTime;
 class Comment {
 
     String text;
+    int authorIdentifier;
     int upvoteCount;
     int downvoteCount;
     String creationTime;
 
-    public Comment(String text, int upvoteCount, int downvoteCount, String creationTime) {
+    public Comment(String text, int authorIdentifier, int upvoteCount, int downvoteCount, String creationTime) {
         this.text = text;
+        this.authorIdentifier = authorIdentifier;
         this.upvoteCount = upvoteCount;
         this.downvoteCount = downvoteCount;
         this.creationTime = creationTime;
