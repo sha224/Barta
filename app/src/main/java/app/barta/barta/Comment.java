@@ -5,13 +5,15 @@ import org.threeten.bp.OffsetDateTime;
 
 class Comment {
 
+    String commentUrl;
     String text;
     int authorIdentifier;
     int upvoteCount;
     int downvoteCount;
     String creationTime;
 
-    public Comment(String text, int authorIdentifier, int upvoteCount, int downvoteCount, String creationTime) {
+    public Comment(String commentUrl, String text, int authorIdentifier, int upvoteCount, int downvoteCount, String creationTime) {
+        this.commentUrl = commentUrl;
         this.text = text;
         this.authorIdentifier = authorIdentifier;
         this.upvoteCount = upvoteCount;
