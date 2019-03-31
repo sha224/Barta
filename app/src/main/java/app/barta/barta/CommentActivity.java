@@ -1,12 +1,14 @@
 package app.barta.barta;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -55,6 +57,7 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         postText = findViewById(R.id.postText);
         upvoteButton = findViewById(R.id.upvoteButton);
         upvoteCountText = findViewById(R.id.upvoteCountText);
@@ -94,6 +97,13 @@ public class CommentActivity extends AppCompatActivity {
                 createComment(commentInputText);
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        startActivity(mainIntent);
+        return true;
     }
 
     public void fetch() {
@@ -251,6 +261,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Response: " + response);
+                fetch();
             }
         }, new Response.ErrorListener() {
             @Override
