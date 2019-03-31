@@ -51,9 +51,13 @@ class Post {
         return miles;
     }
 
-    int getHourDifferenceFrom(OffsetDateTime fromTime) {
+    String getHourDifferenceFrom(OffsetDateTime fromTime) {
         OffsetDateTime postTime = OffsetDateTime.parse(creationTime);
         Duration duration = Duration.between(postTime, fromTime);
-        return (int) duration.toHours();
+        int hours = (int) duration.toHours();
+        if (hours >= 24)
+            return (int) duration.toDays() + "d";
+        else
+            return hours + "h";
     }
 }

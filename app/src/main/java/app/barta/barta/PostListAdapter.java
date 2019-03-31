@@ -84,7 +84,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostHo
         postHolder.downvoteCountView.setText(Integer.toString(posts.get(i).downvoteCount));
         postHolder.commentCountView.setText(Integer.toString(posts.get(i).commentCount));
         postHolder.placeTextView.setText(posts.get(i).getMilesDistanceFrom(deviceLocation.getLatitude(), deviceLocation.getLongitude()) + " mi");
-        postHolder.timeTextView.setText(posts.get(i).getHourDifferenceFrom(OffsetDateTime.now()) + "h");
+        postHolder.timeTextView.setText(posts.get(i).getHourDifferenceFrom(OffsetDateTime.now()));
         final int index = i;
         postHolder.upvoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
