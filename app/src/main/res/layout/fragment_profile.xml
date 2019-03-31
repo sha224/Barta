@@ -6,21 +6,197 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/title_profile"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/title_profile" />
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/ageLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/age_label"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/ageLabel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/karmaLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/karma_label"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ageLabel" />
+
+            <TextView
+                android:id="@+id/karmaCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/karmaLabel"
+                app:layout_constraintTop_toTopOf="@+id/karmaLabel" />
+
+            <TextView
+                android:id="@+id/postKarmaLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/post_karma_label"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/karmaLabel"
+                app:layout_constraintTop_toBottomOf="@+id/karmaLabel" />
+
+            <TextView
+                android:id="@+id/postKarmaCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/postKarmaLabel"
+                app:layout_constraintTop_toTopOf="@+id/postKarmaLabel" />
+
+            <TextView
+                android:id="@+id/postUpvoteLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/upvote_label"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/postKarmaLabel"
+                app:layout_constraintTop_toBottomOf="@+id/postKarmaLabel" />
+
+            <TextView
+                android:id="@+id/postUpvoteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/postUpvoteLabel"
+                app:layout_constraintTop_toTopOf="@+id/postUpvoteLabel" />
+
+            <TextView
+                android:id="@+id/postDownvoteLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="@string/downvote_label"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/postUpvoteCount"
+                app:layout_constraintTop_toTopOf="@+id/postUpvoteCount" />
+
+            <TextView
+                android:id="@+id/postDownvoteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/postDownvoteLabel"
+                app:layout_constraintTop_toTopOf="@+id/postDownvoteLabel" />
+
+            <TextView
+                android:id="@+id/commentKarmaLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/comment_karma_label"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/karmaLabel"
+                app:layout_constraintTop_toBottomOf="@+id/postUpvoteLabel" />
+
+            <TextView
+                android:id="@+id/commentKarmaCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/commentKarmaLabel"
+                app:layout_constraintTop_toTopOf="@+id/commentKarmaLabel" />
+
+            <TextView
+                android:id="@+id/commentUpvoteLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/upvote_label"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/commentKarmaLabel"
+                app:layout_constraintTop_toBottomOf="@+id/commentKarmaLabel" />
+
+            <TextView
+                android:id="@+id/commentUpvoteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/commentUpvoteLabel"
+                app:layout_constraintTop_toTopOf="@+id/commentUpvoteLabel" />
+
+            <TextView
+                android:id="@+id/commentDownvoteLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/downvote_label"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/commentUpvoteCount"
+                app:layout_constraintTop_toTopOf="@+id/commentUpvoteCount" />
+
+            <TextView
+                android:id="@+id/commentDownvoteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/commentDownvoteLabel"
+                app:layout_constraintTop_toTopOf="@+id/commentDownvoteLabel" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
 </android.support.constraint.ConstraintLayout>

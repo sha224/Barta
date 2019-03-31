@@ -15,4 +15,10 @@
     <string name="compose_done_action_text">Post</string>
     <string name="comment_autofill_hint">Write Comment</string>
     <string name="comments_label">COMMENTS</string>
+    <string name="karma_label">Karma:</string>
+    <string name="post_karma_label">Post Karma:</string>
+    <string name="upvote_label">Upvotes:</string>
+    <string name="downvote_label">Downvotes:</string>
+    <string name="comment_karma_label">Comment Karma:</string>
+    <string name="age_label">Account Age:</string>
 </resources>
