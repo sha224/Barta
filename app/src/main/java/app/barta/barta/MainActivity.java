@@ -1,13 +1,16 @@
 package app.barta.barta;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -46,14 +49,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     static final String EXTRA_POST_URL = "postUrl";
     private static final String USER_DATA_FILENAME = "user";
 
-    BottomNavigationView navigation;
-
+    SharedPreferences sharedPreferences;
+    private BottomNavigationView navigation;
     private LocationManager locationManager;
     private Location deviceLocation;
     private String userUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         loadUserUrl();
@@ -107,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
             return;
         }
+        deviceLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {

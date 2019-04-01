@@ -49,7 +49,10 @@ public class HomeFragment extends Fragment {
     }
 
     public void fetchPosts() {
-        String url = BuildConfig.API_URL + "/posts";
+        final Location deviceLocation = ((MainActivity) getContext()).getDeviceLocation();
+        String location = deviceLocation.getLatitude() + "," + deviceLocation.getLongitude();
+        int distance = ((MainActivity) getContext()).sharedPreferences.getInt("distance_preference", 10);
+        String url = BuildConfig.API_URL + "/posts/search/findByLocationNear?location=" + location + "&distance=" + distance + "miles";
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {
             @Override
@@ -71,9 +74,8 @@ public class HomeFragment extends Fragment {
                 }
 
                 Log.d(TAG, "Finished fetching posts");
-                Location deviceLocation = ((MainActivity) getContext()).getDeviceLocation();
-                if (deviceLocation != null)
-                    recyclerView.setAdapter(new PostListAdapter(getContext(), posts, deviceLocation));
+
+                recyclerView.setAdapter(new PostListAdapter(getContext(), posts, deviceLocation));
             }
         }, new Response.ErrorListener() {
             @Override
