@@ -113,6 +113,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Response: " + response);
+                ((CommentActivity) context).fetch();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -156,6 +157,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Response: " + response);
+                ((CommentActivity) context).fetch();
             }
         }, new Response.ErrorListener() {
             @Override

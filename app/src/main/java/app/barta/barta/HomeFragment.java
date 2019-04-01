@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
 
                 Log.d(TAG, "Finished fetching posts");
 
-                recyclerView.setAdapter(new PostListAdapter(getContext(), posts, deviceLocation));
+                recyclerView.setAdapter(new PostListAdapter(getContext(), HomeFragment.this, posts, deviceLocation));
             }
         }, new Response.ErrorListener() {
             @Override

@@ -33,11 +33,13 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostHo
     private static final String TAG = "PostListAdapter";
 
     private Context context;
+    private HomeFragment parent;
     private List<Post> posts;
     private Location deviceLocation;
 
-    public PostListAdapter(Context context, List<Post> posts, Location deviceLocation) {
+    public PostListAdapter(Context context, HomeFragment parent, List<Post> posts, Location deviceLocation) {
         this.context = context;
+        this.parent = parent;
         this.posts = posts;
         this.deviceLocation = deviceLocation;
     }
@@ -125,6 +127,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostHo
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Response: " + response);
+                parent.fetchPosts();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -168,6 +171,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostHo
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Response: " + response);
+                parent.fetchPosts();
             }
         }, new Response.ErrorListener() {
             @Override
