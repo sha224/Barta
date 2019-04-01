@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     static final String EXTRA_POST_URL = "postUrl";
     private static final String USER_DATA_FILENAME = "user";
 
+    BottomNavigationView navigation;
+
     private LocationManager locationManager;
     private Location deviceLocation;
     private String userUrl;
@@ -57,7 +59,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         loadUserUrl();
         updateLocation();
         setContentView(R.layout.activity_main);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         navigation.setOnNavigationItemSelectedListener(this);
         navigation.setSelectedItemId(R.id.navigation_home);
     }
@@ -74,24 +82,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actions_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.composeAction) {
-            Intent composeIntent = new Intent(this, ComposeActivity.class);
-            composeIntent.putExtra(EXTRA_LOCATION, deviceLocation);
-            composeIntent.putExtra(EXTRA_USER_URL, userUrl);
-            startActivity(composeIntent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.navigation_profile:
@@ -100,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return loadFragment(new HomeFragment());
             case R.id.navigation_settings:
                 return loadFragment(new SettingsFragment());
+            case R.id.navigation_compose:
+                Intent composeIntent = new Intent(this, ComposeActivity.class);
+                composeIntent.putExtra(EXTRA_LOCATION, deviceLocation);
+                composeIntent.putExtra(EXTRA_USER_URL, userUrl);
+                startActivity(composeIntent);
+                return true;
         }
         return false;
     }

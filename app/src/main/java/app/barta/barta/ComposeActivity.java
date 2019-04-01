@@ -35,6 +35,7 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         deviceLocation = getIntent().getParcelableExtra(MainActivity.EXTRA_LOCATION);
         userUrl = getIntent().getStringExtra(MainActivity.EXTRA_USER_URL);
         postTextInput = findViewById(R.id.postTextInput);
@@ -55,6 +56,18 @@ public class ComposeActivity extends AppCompatActivity {
             startActivity(mainIntent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        startActivity(mainIntent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     public void createPost(String postText) {
