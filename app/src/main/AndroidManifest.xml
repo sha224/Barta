@@ -29,7 +29,8 @@
         <activity
             android:name=".ComposeActivity"
             android:label="@string/compose_activity_title" />
-        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".CommentActivity"
+            android:label="Comments" />
     </application>
 
 </manifest>
