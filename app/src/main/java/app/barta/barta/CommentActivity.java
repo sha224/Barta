@@ -144,7 +144,7 @@ public class CommentActivity extends AppCompatActivity {
                 downvoteCountText.setText(Integer.toString(post.downvoteCount));
                 commentCountText.setText(Integer.toString(post.commentCount));
                 placeText.setText(post.getMilesDistanceFrom(deviceLocation.getLatitude(), deviceLocation.getLongitude()) + " mi");
-                timeText.setText(post.getHourDifferenceFrom(OffsetDateTime.now()) + "h");
+                timeText.setText(post.getHourDifferenceFrom(OffsetDateTime.now()));
                 recyclerView.setAdapter(new CommentListAdapter(CommentActivity.this, comments));
             }
         }, new Response.ErrorListener() {
@@ -168,6 +168,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Response: " + response);
+                fetch();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -211,6 +212,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Response: " + response);
+                fetch();
             }
         }, new Response.ErrorListener() {
             @Override
