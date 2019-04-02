@@ -95,12 +95,17 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     }
 
     private void setCommenterIcon(CommentHolder commentHolder, int commenterId) {
-        if (!(commenterId >= 0 && commenterId <= 99))
-            return;
+        int opIcon = R.drawable.ic_op;
+        int opColor = R.color.icon_color_gray;
         int[] icons = {R.drawable.ic_eagle, R.drawable.ic_elephant, R.drawable.ic_frog, R.drawable.ic_hummingbird, R.drawable.ic_lion, R.drawable.ic_owl, R.drawable.ic_ox, R.drawable.ic_pig, R.drawable.ic_rat, R.drawable.ic_reindeer};
-        int[] colors = {R.color.icon_color_deepblue, R.color.icon_color_orange, R.color.icon_color_lightgreen, R.color.icon_color_brown, R.color.icon_color_gray, R.color.icon_color_yellow, R.color.icon_color_red, R.color.icon_color_deepgreen, R.color.icon_color_purple, R.color.icon_color_lightblue};
-        commentHolder.commenterIcon.setImageResource(icons[commenterId % 10]);
-        commentHolder.commenterIcon.setCircleBackgroundColorResource(colors[commenterId / 10]);
+        int[] colors = {R.color.icon_color_deepblue, R.color.icon_color_orange, R.color.icon_color_lightgreen, R.color.icon_color_brown, R.color.icon_color_yellow, R.color.icon_color_red, R.color.icon_color_deepgreen, R.color.icon_color_purple, R.color.icon_color_lightblue, R.color.icon_color_bluegreen};
+        if (commenterId == -1) {
+            commentHolder.commenterIcon.setImageResource(opIcon);
+            commentHolder.commenterIcon.setCircleBackgroundColorResource(opColor);
+        } else if (commenterId >= 0 && commenterId <= 99) {
+            commentHolder.commenterIcon.setImageResource(icons[commenterId % 10]);
+            commentHolder.commenterIcon.setCircleBackgroundColorResource(colors[commenterId / 10]);
+        }
     }
 
     private void upvote(String commentUrl) {
