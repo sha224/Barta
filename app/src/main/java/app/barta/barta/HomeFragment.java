@@ -22,8 +22,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.threeten.bp.OffsetDateTime;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -76,6 +79,12 @@ public class HomeFragment extends Fragment {
 
                 Log.d(TAG, "Finished fetching posts");
 
+                Collections.sort(posts, new Comparator<Post>() {
+                    @Override
+                    public int compare(Post p1, Post p2) {
+                        return OffsetDateTime.parse(p2.creationTime).compareTo(OffsetDateTime.parse(p1.creationTime));
+                    }
+                });
                 recyclerView.setAdapter(new PostListAdapter(getContext(), HomeFragment.this, posts, deviceLocation));
             }
         }, new Response.ErrorListener() {

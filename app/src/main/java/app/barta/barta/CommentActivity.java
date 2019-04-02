@@ -31,6 +31,8 @@ import org.threeten.bp.OffsetDateTime;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CommentActivity extends AppCompatActivity {
@@ -145,6 +147,12 @@ public class CommentActivity extends AppCompatActivity {
                 commentCountText.setText(Integer.toString(post.commentCount));
                 placeText.setText(post.getMilesDistanceFrom(deviceLocation.getLatitude(), deviceLocation.getLongitude()) + " mi");
                 timeText.setText(post.getHourDifferenceFrom(OffsetDateTime.now()));
+                Collections.sort(comments, new Comparator<Comment>() {
+                    @Override
+                    public int compare(Comment c1, Comment c2) {
+                        return OffsetDateTime.parse(c2.creationTime).compareTo(OffsetDateTime.parse(c1.creationTime));
+                    }
+                });
                 recyclerView.setAdapter(new CommentListAdapter(CommentActivity.this, comments));
             }
         }, new Response.ErrorListener() {
