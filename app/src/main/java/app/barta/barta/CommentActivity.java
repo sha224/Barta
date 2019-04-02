@@ -2,7 +2,9 @@ package app.barta.barta;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +41,8 @@ public class CommentActivity extends AppCompatActivity {
 
     private static final String TAG = "CommentActivity";
 
+    private SharedPreferences sharedPreferences;
+
     private TextView postText;
     private ImageButton upvoteButton;
     private TextView upvoteCountText;
@@ -60,6 +64,7 @@ public class CommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         postText = findViewById(R.id.postText);
         upvoteButton = findViewById(R.id.upvoteButton);
         upvoteCountText = findViewById(R.id.upvoteCountText);
@@ -147,12 +152,25 @@ public class CommentActivity extends AppCompatActivity {
                 commentCountText.setText(Integer.toString(post.commentCount));
                 placeText.setText(post.getMilesDistanceFrom(deviceLocation.getLatitude(), deviceLocation.getLongitude()) + " mi");
                 timeText.setText(post.getHourDifferenceFrom(OffsetDateTime.now()));
-                Collections.sort(comments, new Comparator<Comment>() {
-                    @Override
-                    public int compare(Comment c1, Comment c2) {
-                        return OffsetDateTime.parse(c2.creationTime).compareTo(OffsetDateTime.parse(c1.creationTime));
-                    }
-                });
+
+                String sort = sharedPreferences.getString("comment_sort_preference", "Latest");
+                Log.d(TAG, "Sort Posts By: " + sort);
+                if (sort.equals("Latest")) {
+                    Collections.sort(comments, new Comparator<Comment>() {
+                        @Override
+                        public int compare(Comment c1, Comment c2) {
+                            return OffsetDateTime.parse(c2.creationTime).compareTo(OffsetDateTime.parse(c1.creationTime));
+                        }
+                    });
+                } else if (sort.equals("Highest Rating")) {
+                    Collections.sort(comments, new Comparator<Comment>() {
+                        @Override
+                        public int compare(Comment c1, Comment c2) {
+                            return (c2.upvoteCount - c2.downvoteCount) - (c1.upvoteCount - c1.downvoteCount);
+                        }
+                    });
+                }
+
                 recyclerView.setAdapter(new CommentListAdapter(CommentActivity.this, comments));
             }
         }, new Response.ErrorListener() {

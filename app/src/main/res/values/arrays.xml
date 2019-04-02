@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="post_sort_entries_array">
+        <item>Latest</item>
+        <item>Nearest</item>
+        <item>Highest Rating</item>
+    </string-array>
+    <string-array name="comment_sort_entries_array">
+        <item>Latest</item>
+        <item>Highest Rating</item>
+    </string-array>
+</resources>

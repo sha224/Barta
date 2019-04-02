@@ -79,12 +79,30 @@ public class HomeFragment extends Fragment {
 
                 Log.d(TAG, "Finished fetching posts");
 
-                Collections.sort(posts, new Comparator<Post>() {
-                    @Override
-                    public int compare(Post p1, Post p2) {
-                        return OffsetDateTime.parse(p2.creationTime).compareTo(OffsetDateTime.parse(p1.creationTime));
-                    }
-                });
+                String sort = ((MainActivity) getContext()).sharedPreferences.getString("post_sort_preference", "Latest");
+                Log.d(TAG, "Sort Posts By: " + sort);
+                if (sort.equals("Latest")) {
+                    Collections.sort(posts, new Comparator<Post>() {
+                        @Override
+                        public int compare(Post p1, Post p2) {
+                            return OffsetDateTime.parse(p2.creationTime).compareTo(OffsetDateTime.parse(p1.creationTime));
+                        }
+                    });
+                } else if (sort.equals("Nearest")) {
+                    Collections.sort(posts, new Comparator<Post>() {
+                        @Override
+                        public int compare(Post p1, Post p2) {
+                            return p1.getMilesDistanceFrom(deviceLocation.getLatitude(), deviceLocation.getLongitude()) - p2.getMilesDistanceFrom(deviceLocation.getLatitude(), deviceLocation.getLongitude());
+                        }
+                    });
+                } else if (sort.equals("Highest Rating")) {
+                    Collections.sort(posts, new Comparator<Post>() {
+                        @Override
+                        public int compare(Post p1, Post p2) {
+                            return (p2.upvoteCount - p2.downvoteCount) - (p1.upvoteCount - p1.downvoteCount);
+                        }
+                    });
+                }
                 recyclerView.setAdapter(new PostListAdapter(getContext(), HomeFragment.this, posts, deviceLocation));
             }
         }, new Response.ErrorListener() {

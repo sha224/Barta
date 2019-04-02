@@ -7,5 +7,17 @@
         android:summary="Radius to use for searching for posts"
         android:max="100"
         android:defaultValue="10" />
+    <ListPreference
+        android:defaultValue="Latest"
+        android:entries="@array/post_sort_entries_array"
+        android:entryValues="@array/post_sort_entries_array"
+        android:key="post_sort_preference"
+        android:title="Sort Posts By" />
+    <ListPreference
+        android:defaultValue="Latest"
+        android:entries="@array/comment_sort_entries_array"
+        android:entryValues="@array/comment_sort_entries_array"
+        android:key="comment_sort_preference"
+        android:title="Sort Comments By" />
 
 </PreferenceScreen>
