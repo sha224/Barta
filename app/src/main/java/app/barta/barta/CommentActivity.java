@@ -154,7 +154,7 @@ public class CommentActivity extends AppCompatActivity {
                 timeText.setText(post.getHourDifferenceFrom(OffsetDateTime.now()));
 
                 String sort = sharedPreferences.getString("comment_sort_preference", "Latest");
-                Log.d(TAG, "Sort Posts By: " + sort);
+                Log.d(TAG, "Sort Comments By: " + sort);
                 if (sort.equals("Latest")) {
                     Collections.sort(comments, new Comparator<Comment>() {
                         @Override
@@ -176,7 +176,7 @@ public class CommentActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Error while fetching posts", error);
+                Log.e(TAG, "Error while fetching comments", error);
             }
         });
 
