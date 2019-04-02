@@ -12,6 +12,12 @@ import android.view.ViewGroup;
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ((MainActivity)getContext()).getSupportActionBar().setTitle(R.string.title_settings);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         setPreferencesFromResource(R.xml.preferences, s);
     }

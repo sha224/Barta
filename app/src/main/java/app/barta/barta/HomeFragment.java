@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ((MainActivity)getContext()).getSupportActionBar().setTitle(R.string.app_name);
         View fragmentView = inflater.inflate(R.layout.fragment_home, null);
         recyclerView = fragmentView.findViewById(R.id.postListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

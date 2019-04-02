@@ -38,6 +38,7 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ((MainActivity)getContext()).getSupportActionBar().setTitle(R.string.title_profile);
         View fragmentView = inflater.inflate(R.layout.fragment_profile, null);
         ageValue = fragmentView.findViewById(R.id.ageValue);
         karmaCount = fragmentView.findViewById(R.id.karmaCount);
