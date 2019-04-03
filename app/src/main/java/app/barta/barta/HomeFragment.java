@@ -2,6 +2,7 @@ package app.barta.barta;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,15 @@ public class HomeFragment extends Fragment {
     private List<Post> posts;
     private RecyclerView recyclerView;
 
+    private final Handler handler = new Handler();
+    private final Runnable fetcher = new Runnable() {
+        @Override
+        public void run() {
+            fetchPosts();
+            handler.postDelayed(fetcher, 5000);
+        }
+    };
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +58,14 @@ public class HomeFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_home, null);
         recyclerView = fragmentView.findViewById(R.id.postListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        fetchPosts();
+        handler.post(fetcher);
         return fragmentView;
+    }
+
+    @Override
+    public void onStop() {
+        handler.removeCallbacks(fetcher);
+        super.onStop();
     }
 
     public void fetchPosts() {

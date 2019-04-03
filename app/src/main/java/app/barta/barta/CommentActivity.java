@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,6 +56,15 @@ public class CommentActivity extends AppCompatActivity {
     private EditText commentInput;
     private ImageButton commentSendButton;
 
+    private final Handler handler = new Handler();
+    private final Runnable fetcher = new Runnable() {
+        @Override
+        public void run() {
+            fetch();
+            handler.postDelayed(fetcher, 5000);
+        }
+    };
+
     private String postUrl;
     private String userUrl;
     private Location deviceLocation;
@@ -80,7 +90,7 @@ public class CommentActivity extends AppCompatActivity {
         postUrl = getIntent().getStringExtra(MainActivity.EXTRA_POST_URL);
         userUrl = getIntent().getStringExtra(MainActivity.EXTRA_USER_URL);
         deviceLocation = getIntent().getParcelableExtra(MainActivity.EXTRA_LOCATION);
-        fetch();
+        handler.post(fetcher);
         upvoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +114,12 @@ public class CommentActivity extends AppCompatActivity {
                 createComment(commentInputText);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(fetcher);
+        super.onDestroy();
     }
 
     @Override

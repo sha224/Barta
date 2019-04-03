@@ -1,6 +1,7 @@
 package app.barta.barta;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,15 @@ public class ProfileFragment extends Fragment {
     private TextView commentUpvoteCount;
     private TextView commentDownvoteCount;
 
+    private final Handler handler = new Handler();
+    private final Runnable fetcher = new Runnable() {
+        @Override
+        public void run() {
+            fetch();
+            handler.postDelayed(fetcher, 5000);
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,8 +58,14 @@ public class ProfileFragment extends Fragment {
         commentKarmaCount = fragmentView.findViewById(R.id.commentKarmaCount);
         commentUpvoteCount = fragmentView.findViewById(R.id.commentUpvoteCount);
         commentDownvoteCount = fragmentView.findViewById(R.id.commentDownvoteCount);
-        fetch();
+        handler.post(fetcher);
         return fragmentView;
+    }
+
+    @Override
+    public void onStop() {
+        handler.removeCallbacks(fetcher);
+        super.onStop();
     }
 
     private void fetch() {
